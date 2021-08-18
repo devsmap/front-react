@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+
+  flex-direction: column;
+
+  height: '100vh';
+`;
 
 export const Header = styled.header`
   display: flex;
@@ -19,7 +25,7 @@ export const Header = styled.header`
 `;
 
 export const Content = styled.main`
-  display: flex;
+  height: 100%;
 `;
 
 export const OptionsMenu = styled.div`

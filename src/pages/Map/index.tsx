@@ -1,16 +1,18 @@
 import React from 'react';
+import MapContainer from '../../components/MapContainer';
 import {
   Content,
   Header,
   OptionsMenu,
   CustomButton,
   CarouselItens,
+  Container,
 } from './styles';
 
 import logoImg from '../../assets/logo/logotype/original-white.svg';
 
 const Map: React.FC = () => (
-  <>
+  <Container>
     <Header>
       <img src={logoImg} alt="devsmap" />
 
@@ -24,9 +26,9 @@ const Map: React.FC = () => (
       <span>Techs</span>
     </CarouselItens>
     <Content>
-      <span>Mapa</span>
+      <MapContainer />
     </Content>
-  </>
+  </Container>
 );
 
 export default Map;
