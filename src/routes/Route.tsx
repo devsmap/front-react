@@ -18,24 +18,27 @@ const Route: React.FC<RouteProps> = ({
   ...rest
 }) => {
   const { user } = useAuth();
-
+  /* eslint-disable indent */
   return (
-    <ReactDOMRoute
-      {...rest}
-      // eslint-disable-next-line arrow-body-style
-      render={({ location }) => {
-        return isPrivate === !!user ? (
-          <Component />
-        ) : (
-          <Redirect
-            to={{
-              pathname: isPrivate ? '/' : '/map',
-              state: { from: location },
-            }}
-          />
-        );
-      }}
-    />
+    // <ReactDOMRoute
+    //   {...rest}
+    //   // eslint-disable-next-line arrow-body-style
+    //   render={({ location }) => {
+    //     return isPrivate === !!user ? (
+    //       <Component />
+    //     ) : (
+    //       <Redirect
+    //         to={{
+    //           pathname: isPrivate ? '/' : '/map',
+    //           state: { from: location },
+    //         }}
+    //       />
+    //     );
+    //   }}
+    // />
+    /* eslint-enable indent */
+
+    <ReactDOMRoute {...rest} render={() => <Component />} />
   );
 };
 
