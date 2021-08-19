@@ -28,8 +28,8 @@ export const Content = styled.main`
   position: absolute;
 
   width: 100%;
-  height: calc(100% - 128px);
-  margin-top: 128px;
+  height: calc(100% - 118px);
+  margin-top: 118px;
 `;
 
 export const OptionsMenu = styled.div`
