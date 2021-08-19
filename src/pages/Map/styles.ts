@@ -25,7 +25,11 @@ export const Header = styled.header`
 `;
 
 export const Content = styled.main`
-  height: 100%;
+  position: absolute;
+
+  width: 100%;
+  height: calc(100% - 128px);
+  margin-top: 128px;
 `;
 
 export const OptionsMenu = styled.div`

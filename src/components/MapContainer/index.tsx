@@ -1,20 +1,23 @@
 import React from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, IMapProps, Marker } from 'google-maps-react';
+import { conteinerMapStyles, mapStyle } from './mapStyle';
 
-const mapStyles = {
-  width: '100%',
-  heigth: '100%',
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapLoaded: any = (mapProps: any, map: any) => {
+  map.setOptions({
+    styles: mapStyle,
+    streetViewControl: false,
+    mapTypeControl: false,
+    fullscreenControl: false,
+  });
 };
 
-interface MapProps {
-  google: string;
-}
-
-const MapContainer: React.FC<MapProps> = ({ google }) => (
+const MapContainer: React.FC<IMapProps> = ({ google }) => (
   <Map
     google={google}
-    style={mapStyles}
+    containerStyle={conteinerMapStyles}
     initialCenter={{ lat: -3.733358, lng: -38.526143 }}
+    onReady={(mapProps, map) => mapLoaded(mapProps, map)}
   />
 );
 
