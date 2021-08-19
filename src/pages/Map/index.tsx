@@ -1,5 +1,6 @@
 import React from 'react';
 import MapContainer from '../../components/MapContainer';
+import TechCarosel from '../../components/TechCarosel';
 import {
   Content,
   Header,
@@ -23,7 +24,7 @@ const Map: React.FC = () => (
       </OptionsMenu>
     </Header>
     <CarouselItens>
-      <span>Techs</span>
+      <TechCarosel />
     </CarouselItens>
     <Content>
       <MapContainer />
