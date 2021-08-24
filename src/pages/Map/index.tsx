@@ -1,6 +1,6 @@
 import React from 'react';
 import MapContainer from '../../components/MapContainer';
-import TechCarosel from '../../components/TechCarosel';
+import TechsMenu from '../../components/TechsMenu';
 import {
   Content,
   Header,
@@ -10,7 +10,7 @@ import {
   Container,
 } from './styles';
 
-import logoImg from '../../assets/logo/logotype/original-white.svg';
+import logoImg from '../../assets/logo/logotype/dark-theme.svg';
 
 const Map: React.FC = () => (
   <Container>
@@ -24,7 +24,7 @@ const Map: React.FC = () => (
       </OptionsMenu>
     </Header>
     <CarouselItens>
-      <TechCarosel />
+      <TechsMenu techs={[]} />
     </CarouselItens>
     <Content>
       <MapContainer />
