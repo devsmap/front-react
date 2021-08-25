@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container } from './styles';
 
-interface Tech {
+export interface Tech {
   id: number;
   name: string;
   logo: string;
 }
 
-interface TechsMenuProps {
+export interface TechsMenuProps {
   techs: Tech[];
 }
 

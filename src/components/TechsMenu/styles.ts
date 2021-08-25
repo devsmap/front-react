@@ -13,6 +13,7 @@ export const Container = styled.div`
     filter: grayscale(100%) brightness(1.1);
     height: 34px;
     transition: filter 0.3s;
+    padding: 0 5px;
 
     &:hover {
       filter: none;
