@@ -1,5 +1,6 @@
 import React from 'react';
 import GoogleMapReact, { Props as MapProps, Coords } from 'google-map-react';
+import BotJobsMarker from './components/Markers/BotJobsMarker';
 import { mapStyle } from './mapStyle';
 
 interface CityJobs {
@@ -15,10 +16,6 @@ interface MapContainerProps extends MapProps {
   citiesJobs: CityJobs[];
   jobs: Job[];
 }
-
-const BotJobsMarker: React.FC<{ lat: number; lng: number; text: string }> = ({
-  text,
-}) => <div>{text}</div>;
 
 const MapContainer: React.FC<MapContainerProps> = ({ citiesJobs, jobs }) => {
   const defaultLocation: Coords = { lat: 37.7576948, lng: -122.4726194 };
@@ -49,7 +46,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ citiesJobs, jobs }) => {
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
       >
-        <BotJobsMarker lat={37.7576948} lng={-122.4726194} text="My Marker" />
+        <BotJobsMarker lat={-3.7374975} lng={-38.5111564} text="My Marker" />
       </GoogleMapReact>
     </div>
   );
