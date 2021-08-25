@@ -1,62 +1,58 @@
 import React from 'react';
-import { Map, GoogleApiWrapper, IMapProps, Marker } from 'google-maps-react';
-import { conteinerMapStyles, mapStyle } from './mapStyle';
+import GoogleMapReact, { Props as MapProps, Coords } from 'google-map-react';
+import { mapStyle } from './mapStyle';
 
-interface Position {
-  lat: number;
-  lng: number;
-}
 interface CityJobs {
   title: string;
   name: string;
-  position: Position;
+  position: Coords;
 }
 
 interface Job {
   title: string;
 }
-interface MapContainerProps extends IMapProps {
+interface MapContainerProps extends MapProps {
   citiesJobs: CityJobs[];
   jobs: Job[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapLoaded: any = (mapProps: any, map: any) => {
-  map.setOptions({
-    styles: mapStyle,
-    streetViewControl: false,
-    mapTypeControl: false,
-    fullscreenControl: false,
-  });
+const BotJobsMarker: React.FC<{ lat: number; lng: number; text: string }> = ({
+  text,
+}) => <div>{text}</div>;
+
+const MapContainer: React.FC<MapContainerProps> = ({ citiesJobs, jobs }) => {
+  const defaultLocation: Coords = { lat: 37.7576948, lng: -122.4726194 };
+
+  const handleApiLoaded = (map: any): void => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        map.setCenter({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      });
+    }
+  };
+
+  return (
+    <div style={{ height: '100vh', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_KEY ?? '' }}
+        defaultCenter={defaultLocation}
+        defaultZoom={11}
+        options={{
+          styles: mapStyle,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+        }}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
+      >
+        <BotJobsMarker lat={37.7576948} lng={-122.4726194} text="My Marker" />
+      </GoogleMapReact>
+    </div>
+  );
 };
 
-const MapContainer: React.FC<MapContainerProps> = ({
-  google,
-  citiesJobs,
-  jobs,
-}) => (
-  <Map
-    google={google}
-    containerStyle={conteinerMapStyles}
-    initialCenter={{ lat: -3.733358, lng: -38.526143 }}
-    onReady={(mapProps, map) => mapLoaded(mapProps, map)}
-  >
-    {citiesJobs.map(({ title, name, position }) => (
-      <Marker
-        // eslint-disable-next-line max-len
-        // FIXME: This library doesn't support ts properly, we got looking for a better one or do one of our own
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        title={title}
-        name={name}
-        position={position}
-      >
-        <span>Teste</span>
-      </Marker>
-    ))}
-  </Map>
-);
-
-export default GoogleApiWrapper((props) => ({
-  apiKey: 'AIzaSyCEfMilvAYXbiy8uYvmhggUrgDJAAzqzvY',
-}))(MapContainer);
+export default MapContainer;

@@ -1,8 +1,3 @@
-export const conteinerMapStyles = {
-  width: '100%',
-  heigth: '100%',
-};
-
 export const mapStyle = [
   {
     elementType: 'geometry',
