@@ -16,11 +16,12 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: 16px 16px;
+  padding: 0 16px;
   background: #242229;
+  height: 70px;
 
   img {
-    width: 180px;
+    width: 150px;
   }
 `;
 
@@ -28,8 +29,8 @@ export const Content = styled.main`
   position: absolute;
 
   width: 100%;
-  height: calc(100% - 118px);
-  margin-top: 118px;
+  height: calc(100% - 120px);
+  margin-top: 120px;
 `;
 
 export const OptionsMenu = styled.div`

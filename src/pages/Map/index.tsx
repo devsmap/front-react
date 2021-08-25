@@ -1,35 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MapContainer from '../../components/MapContainer';
 import TechsMenu from '../../components/TechsMenu';
-import {
-  Content,
-  Header,
-  OptionsMenu,
-  CustomButton,
-  CarouselItens,
-  Container,
-} from './styles';
+import { Content, Header, CarouselItens, Container } from './styles';
 
 import logoImg from '../../assets/logo/logotype/dark-theme.svg';
+import { useTechs } from '../../hooks/techs';
 
-const Map: React.FC = () => (
-  <Container>
-    <Header>
-      <img src={logoImg} alt="devsmap" />
+const Map: React.FC = () => {
+  const { fetchTechs } = useTechs();
+  const localTechsRaw = localStorage.getItem('@DevsMap:techs');
+  const localTechs = !!localTechsRaw && JSON.parse(localTechsRaw);
 
-      <OptionsMenu>
-        <CustomButton size="small" variant="contained">
-          <span>Cadastrar Vaga</span>
-        </CustomButton>
-      </OptionsMenu>
-    </Header>
-    <CarouselItens>
-      <TechsMenu techs={[]} />
-    </CarouselItens>
-    <Content>
-      <MapContainer />
-    </Content>
-  </Container>
-);
+  useEffect(() => {
+    if (!localTechs) fetchTechs();
+  });
+
+  const { techs } = useTechs();
+
+  return (
+    <Container>
+      <Header>
+        <img src={logoImg} alt="devsmap" />
+      </Header>
+      <CarouselItens>
+        <TechsMenu techs={localTechs || techs} />
+      </CarouselItens>
+      <Content>
+        <MapContainer citiesJobs={[]} jobs={[]} />
+      </Content>
+    </Container>
+  );
+};
 
 export default Map;
