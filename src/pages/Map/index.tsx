@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import MapContainer from '../../components/MapContainer';
 import TechsMenu from '../../components/TechsMenu';
 import { Content, Header, CarouselItens, Container } from './styles';
@@ -26,7 +26,7 @@ const Map: React.FC = () => {
         <TechsMenu techs={localTechs || techs} />
       </CarouselItens>
       <Content>
-        <MapContainer citiesJobs={[]} jobs={[]} />
+        <MapContainer botJobs={[]} companiesJobs={[]} />
       </Content>
     </Container>
   );
