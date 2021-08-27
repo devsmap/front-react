@@ -45,6 +45,8 @@ function useTechs(): TechsContextData {
     throw new Error('useTechs must be used within an TechsProvider');
   }
 
+  // context.fetchTechs();
+
   return context;
 }
 

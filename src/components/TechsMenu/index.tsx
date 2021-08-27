@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Button } from 'reactstrap';
 import { Container } from './styles';
 
 export interface Tech {
@@ -9,14 +10,23 @@ export interface Tech {
 
 export interface TechsMenuProps {
   techs: Tech[];
+  filterByTech?: (value?: number) => void;
 }
 
-const TechsMenu: React.FC<TechsMenuProps> = ({ techs }) => (
-  <Container>
-    {techs.map(({ id, name, logo }) => (
-      <img key={id} alt={`${name} Logo`} src={logo} />
-    ))}
-  </Container>
-);
+const TechsMenu: React.FC<TechsMenuProps> = ({ techs, filterByTech }) => {
+  const handleTechClick = useCallback((id) => {
+    filterByTech && filterByTech(id);
+  }, []);
+
+  return (
+    <Container>
+      {techs.map(({ id, name, logo }) => (
+        <a href="#/" onClick={() => handleTechClick(id)}>
+          <img key={id} alt={`${name} Logo`} src={logo} />
+        </a>
+      ))}
+    </Container>
+  );
+};
 
 export default TechsMenu;

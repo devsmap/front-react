@@ -1,21 +1,34 @@
-import React, { useEffect } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import React, { useCallback, useEffect } from 'react';
 import MapContainer from '../../components/MapContainer';
 import TechsMenu from '../../components/TechsMenu';
 import { Content, Header, CarouselItens, Container } from './styles';
 
 import logoImg from '../../assets/logo/logotype/dark-theme.svg';
 import { useTechs } from '../../hooks/techs';
+import { useBotJobs } from '../../hooks/botJobs';
 
 const Map: React.FC = () => {
   const { fetchTechs } = useTechs();
+  const { fetchBotJobs } = useBotJobs();
   const localTechsRaw = localStorage.getItem('@DevsMap:techs');
   const localTechs = !!localTechsRaw && JSON.parse(localTechsRaw);
 
   useEffect(() => {
-    if (!localTechs) fetchTechs();
-  });
+    fetchTechs();
+  }, []);
+
+  useEffect(() => {
+    fetchBotJobs();
+  }, []);
+
+  const handleTechChange = useCallback((id) => {
+    fetchBotJobs(id);
+  }, []);
 
   const { techs } = useTechs();
+  const { botJobs } = useBotJobs();
 
   return (
     <Container>
@@ -23,10 +36,13 @@ const Map: React.FC = () => {
         <img src={logoImg} alt="devsmap" />
       </Header>
       <CarouselItens>
-        <TechsMenu techs={localTechs || techs} />
+        <TechsMenu
+          techs={localTechs || techs}
+          filterByTech={(id) => handleTechChange(id)}
+        />
       </CarouselItens>
       <Content>
-        <MapContainer botJobs={[]} companiesJobs={[]} />
+        <MapContainer botJobs={botJobs} companiesJobs={[]} />
       </Content>
     </Container>
   );

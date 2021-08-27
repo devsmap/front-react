@@ -7,7 +7,7 @@ import { plotOptions, dataLabels } from './plotOptions';
 export interface Tech {
   id: number;
   name: string;
-  logo: string;
+  logo?: string;
   color: string;
 }
 

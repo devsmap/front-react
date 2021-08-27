@@ -2,10 +2,13 @@ import React from 'react';
 
 import { AuthProvider } from './auth';
 import { TechsProvider } from './techs';
+import { BotJobsProvider } from './botJobs';
 
 const AppProvider: React.FC = ({ children }) => (
   <AuthProvider>
-    <TechsProvider>{children}</TechsProvider>
+    <TechsProvider>
+      <BotJobsProvider>{children}</BotJobsProvider>
+    </TechsProvider>
   </AuthProvider>
 );
 
