@@ -1,6 +1,7 @@
 import React from 'react';
 import GoogleMapReact, { Props as MapProps, Coords } from 'google-map-react';
 import BotJobsMarker, { TechCount } from './components/Markers/BotJobsMarker';
+import SideBar from '../SideBar';
 import { mapStyle } from './mapStyle';
 
 interface BotJobs {
@@ -35,6 +36,8 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
+      <SideBar />
+
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_KEY ?? '' }}
         defaultCenter={defaultLocation}
@@ -50,6 +53,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
       >
         {botJobs.map((jobs) => (
           <BotJobsMarker
+            key={jobs.location.lat + jobs.location.lng}
             lat={jobs.location.lat}
             lng={jobs.location.lng}
             techsCount={jobs.techsCount}

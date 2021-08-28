@@ -21,8 +21,8 @@ const TechsMenu: React.FC<TechsMenuProps> = ({ techs, filterByTech }) => {
   return (
     <Container>
       {techs.map(({ id, name, logo }) => (
-        <a href="#/" onClick={() => handleTechClick(id)}>
-          <img key={id} alt={`${name} Logo`} src={logo} />
+        <a key={id} href="#/" onClick={() => handleTechClick(id)}>
+          <img alt={`${name} Logo`} src={logo} />
         </a>
       ))}
     </Container>

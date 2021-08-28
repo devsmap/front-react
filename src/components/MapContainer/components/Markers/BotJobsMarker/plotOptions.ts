@@ -12,11 +12,12 @@ const plotOptions: ApexPlotOptions = {
         show: true,
         name: {
           show: true,
-          fontSize: '12px',
+          fontSize: '10px',
           offsetY: 11,
         },
         value: {
-          offsetY: -17,
+          offsetY: -18,
+          fontSize: '12px',
         },
         total: {
           show: true,
