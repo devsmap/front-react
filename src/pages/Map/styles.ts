@@ -25,7 +25,7 @@ export const Header = styled.header`
   }
 `;
 
-export const Content = styled.main`
+export const Content = styled.div`
   position: absolute;
 
   width: 100%;

@@ -42,7 +42,9 @@ const SideBarProvider: React.FC = ({ children }) => {
         isOpen,
       }}
     >
-      <SideBar isOpen={isOpen}>{childComponent}</SideBar>
+      <SideBar close={close} isOpen={isOpen}>
+        {childComponent}
+      </SideBar>
       {children}
     </SideBarContext.Provider>
   );
