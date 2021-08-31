@@ -10,7 +10,7 @@ export interface Tech {
 
 export interface TechsMenuProps {
   techs: Tech[];
-  filterByTech?: (value?: number) => void;
+  filterByTech?: (value?: number) => Promise<void>;
 }
 
 const TechsMenu: React.FC<TechsMenuProps> = ({ techs, filterByTech }) => {
