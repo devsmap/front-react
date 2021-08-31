@@ -1,10 +1,10 @@
 import React from 'react';
 import GoogleMapReact, { Props as MapProps, Coords } from 'google-map-react';
 import BotJobsMarker, { TechCount } from './components/Markers/BotJobsMarker';
-import SideBar from '../SideBar';
 import { mapStyle } from './mapStyle';
 
 interface BotJobs {
+  id: number;
   techsCount: TechCount[];
   location: Coords;
 }
@@ -15,11 +15,13 @@ interface Job {
 interface MapContainerProps extends MapProps {
   botJobs: BotJobs[];
   companiesJobs: Job[];
+  clickBotJob(markerId: number): Promise<void>;
 }
 
 const MapContainer: React.FC<MapContainerProps> = ({
   botJobs,
   companiesJobs,
+  clickBotJob,
 }) => {
   const defaultLocation: Coords = { lat: 37.7576948, lng: -122.4726194 };
 
@@ -36,8 +38,6 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
-      <SideBar />
-
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_KEY ?? '' }}
         defaultCenter={defaultLocation}
@@ -57,6 +57,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
             lat={jobs.location.lat}
             lng={jobs.location.lng}
             techsCount={jobs.techsCount}
+            clickBotJob={() => clickBotJob(jobs.id)}
           />
         ))}
       </GoogleMapReact>

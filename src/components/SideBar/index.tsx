@@ -1,6 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { HTMLProps } from 'react';
 import { Container } from './styles';
 
-const Sidebar: React.FC = ({ children }) => <Container />;
+type SideBarProps = HTMLProps<HTMLDivElement> & {
+  isOpen: boolean;
+};
+
+const Sidebar: React.FC<SideBarProps> = ({ children, isOpen }) => (
+  <Container isOpen={isOpen}>{children}</Container>
+);
 
 export default Sidebar;

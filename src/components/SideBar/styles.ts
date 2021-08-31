@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  readonly isOpen: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   height: calc(100% - 120px);
-  width: 25%;
+  width: ${(props) => (props.isOpen ? '25%' : '0')};
   position: fixed;
   z-index: 100;
   top: 120px;

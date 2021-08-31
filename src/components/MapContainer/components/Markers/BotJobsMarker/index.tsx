@@ -21,6 +21,7 @@ interface BotJobsMarkerProps {
   lng: number;
   markerWidth?: number;
   techsCount: TechCount[];
+  clickBotJob(): Promise<void>;
 }
 
 // const donutColors = {
@@ -33,6 +34,7 @@ interface BotJobsMarkerProps {
 const BotJobsMarker: React.FC<BotJobsMarkerProps> = ({
   techsCount,
   markerWidth = 150,
+  clickBotJob,
 }) => {
   const [options, setOptions] = useState<ApexCharts.ApexOptions>({});
   const [series, setSeries] = useState<number[]>([]);
@@ -53,7 +55,7 @@ const BotJobsMarker: React.FC<BotJobsMarkerProps> = ({
   }, [techsCount]);
 
   return (
-    <Container>
+    <a href="#/" onClick={() => clickBotJob()}>
       <div style={{ position: 'absolute', left: -75, top: -50 }}>
         <Chart
           options={options}
@@ -63,7 +65,7 @@ const BotJobsMarker: React.FC<BotJobsMarkerProps> = ({
           height="100"
         />
       </div>
-    </Container>
+    </a>
   );
 };
 
