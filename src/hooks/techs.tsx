@@ -23,7 +23,7 @@ type TechsState = Tech[];
 
 type TechsContextData = {
   techs: TechsState;
-  selectedTech: number;
+  selectedTech?: Tech;
   fetchTechs(): Promise<void>;
   selectTech(techId: number): Promise<void>;
 };
@@ -87,7 +87,11 @@ const tempMiddleware = (rawData: Tech[]): TechsState =>
 
 const TechsProvider: React.FC = ({ children }) => {
   const [techs, setTechs] = useState<TechsState>([]);
-  const [selectedTech, setSelectedTech] = useState<number>(0);
+  const [selectedTech, setSelectedTech] = useState<Tech>({
+    id: 0,
+    logo: '',
+    name: '',
+  });
 
   const fetchTechs = useCallback(async () => {
     const response = await api.get('categories');
@@ -101,9 +105,13 @@ const TechsProvider: React.FC = ({ children }) => {
     setTechs(techsData);
   }, []);
 
-  const selectTech = useCallback(async (techId) => {
-    setSelectedTech(techId);
-  }, []);
+  const selectTech = useCallback(
+    async (techId: number) => {
+      const tech = techs.find((value) => value.id === techId);
+      tech && setSelectedTech(tech);
+    },
+    [techs],
+  );
 
   return (
     <TechsContext.Provider

@@ -8,9 +8,9 @@ import { SideBarProvider } from './sideBar';
 const AppProvider: React.FC = ({ children }) => (
   <AuthProvider>
     <SideBarProvider>
-      <BotJobsProvider>
-        <TechsProvider>{children}</TechsProvider>
-      </BotJobsProvider>
+      <TechsProvider>
+        <BotJobsProvider>{children}</BotJobsProvider>
+      </TechsProvider>
     </SideBarProvider>
   </AuthProvider>
 );

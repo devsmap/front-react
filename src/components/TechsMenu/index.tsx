@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { Button } from 'reactstrap';
 import { Container } from './styles';
 
 export interface Tech {

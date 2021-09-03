@@ -27,7 +27,7 @@ const temp = [
     link: 'www.google.com',
     published_at: new Date(2021, 4, 18),
     time_zone: '+3',
-    gogole_job_id: '0',
+    gogole_job_id: '1',
   },
 ];
 
@@ -36,6 +36,7 @@ const JobsList: React.FC<JobsListProps> = ({ children, jobsList }) => (
     {temp.map((jobs) => (
       <>
         <Job
+          key={jobs.gogole_job_id}
           title={jobs.title}
           company={jobs.company}
           description={jobs.description}

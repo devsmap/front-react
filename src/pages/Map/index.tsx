@@ -10,8 +10,8 @@ import { useBotJobs } from '../../hooks/botJobs';
 import { useSideBar } from '../../hooks/sideBar';
 
 const Map: React.FC = () => {
-  const { fetchTechs } = useTechs();
   const { fetchBotJobs } = useBotJobs();
+  const { fetchTechs } = useTechs();
   const { open: openSidebar } = useSideBar();
   const localTechsRaw = localStorage.getItem('@DevsMap:techs');
   const localTechs = !!localTechsRaw && JSON.parse(localTechsRaw);
@@ -21,18 +21,22 @@ const Map: React.FC = () => {
     fetchBotJobs();
   }, []);
 
-  const handleTechChange = useCallback(async (id) => {
-    await fetchBotJobs(id);
-  }, []);
-
-  const handleOpenSideBar = useCallback(async (id) => {
-    const jobsList: React.FC = () => <JobsList jobsList={[]} />;
-
-    await openSidebar(jobsList);
-  }, []);
-
   const { techs } = useTechs();
   const { botJobs } = useBotJobs();
+
+  const handleTechChange = useCallback(async (id) => {
+    const tech = localTechs.find((value: any) => value.id === id);
+    await fetchBotJobs(tech);
+  }, []);
+
+  const handleOpenBotJobs = useCallback(
+    async (id) => {
+      const jobsList: React.FC = () => <JobsList jobsList={[]} />;
+
+      await openSidebar(jobsList);
+    },
+    [openSidebar],
+  );
 
   return (
     <Container>
@@ -48,7 +52,7 @@ const Map: React.FC = () => {
       <Content>
         <MapContainer
           botJobs={botJobs}
-          clickBotJob={async (id) => handleOpenSideBar(id)}
+          clickBotJob={async (id) => handleOpenBotJobs(id)}
           companiesJobs={[]}
         />
       </Content>
