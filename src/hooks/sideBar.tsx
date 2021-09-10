@@ -1,10 +1,4 @@
-import React, {
-  Component,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import SideBar from '../components/SideBar';
 
 type SideBarContextData = {
@@ -32,6 +26,11 @@ const SideBarProvider: React.FC = ({ children }) => {
 
   const close = useCallback(async () => {
     setIsOpen(false);
+    setChildComponent(() => (
+      <>
+        <div>Empty</div>
+      </>
+    ));
   }, []);
 
   return (

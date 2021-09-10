@@ -15,7 +15,7 @@ interface Job {
 interface MapContainerProps extends MapProps {
   botJobs: BotJobs[];
   companiesJobs: Job[];
-  clickBotJob(markerId: number): Promise<void>;
+  clickBotJob(techId: number, companyId: number): Promise<void>;
 }
 
 const MapContainer: React.FC<MapContainerProps> = ({
@@ -57,7 +57,8 @@ const MapContainer: React.FC<MapContainerProps> = ({
             lat={jobs.location.lat}
             lng={jobs.location.lng}
             techsCount={jobs.techsCount}
-            clickBotJob={() => clickBotJob(jobs.id)}
+            // TODO: Fazer para várias techs
+            clickBotJob={() => clickBotJob(jobs.techsCount[0].tech.id, jobs.id)}
           />
         ))}
       </GoogleMapReact>

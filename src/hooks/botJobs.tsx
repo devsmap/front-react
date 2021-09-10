@@ -2,7 +2,6 @@ import React, { createContext, useCallback, useContext, useState } from 'react';
 import { Coords } from 'google-map-react';
 
 import api from '../services/api';
-// import api from '../services/fake/api';
 
 export interface Tech {
   id: number;
@@ -58,8 +57,7 @@ const BotJobsProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<BotJobsState>([]);
 
   const fetchBotJobs = useCallback(async (value = null) => {
-    // console.log(value);
-    if (value !== 0) return;
+    if (!value) return;
 
     const response = await api.get(`pins/${value.id}/default`);
 

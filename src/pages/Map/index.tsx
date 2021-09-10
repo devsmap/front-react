@@ -30,8 +30,34 @@ const Map: React.FC = () => {
   }, []);
 
   const handleOpenBotJobs = useCallback(
-    async (id) => {
-      const jobsList: React.FC = () => <JobsList jobsList={[]} />;
+    async (techId, companyId) => {
+      // const response = await api.get(`jobs/${techId}/${companyId}`);
+      const temp = [
+        {
+          title: 'Título',
+          company: 'Empresa X',
+          description:
+            'Descrição, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
+          via: 'via',
+          link: 'www.google.com',
+          published_at: new Date(2021, 4, 18),
+          time_zone: '+3',
+          gogole_job_id: '0',
+        },
+        {
+          title: 'Título 2',
+          company: 'Empresa Y',
+          description:
+            'Descrição, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
+          via: 'via',
+          link: 'www.google.com',
+          published_at: new Date(2021, 4, 18),
+          time_zone: '+3',
+          gogole_job_id: '1',
+        },
+      ];
+
+      const jobsList: React.FC = () => <JobsList jobsList={temp} />;
 
       await openSidebar(jobsList);
     },
@@ -52,7 +78,9 @@ const Map: React.FC = () => {
       <Content>
         <MapContainer
           botJobs={botJobs}
-          clickBotJob={async (id) => handleOpenBotJobs(id)}
+          clickBotJob={async (techId, companyId) => {
+            handleOpenBotJobs(techId, companyId);
+          }}
           companiesJobs={[]}
         />
       </Content>
