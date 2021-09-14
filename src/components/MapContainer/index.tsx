@@ -4,6 +4,7 @@ import BotJobsMarker, { TechCount } from './components/Markers/BotJobsMarker';
 import { mapStyle } from './mapStyle';
 
 interface BotJobs {
+  city_id: number;
   id: number;
   techsCount: TechCount[];
   location: Coords;
@@ -58,7 +59,9 @@ const MapContainer: React.FC<MapContainerProps> = ({
             lng={jobs.location.lng}
             techsCount={jobs.techsCount}
             // TODO: Fazer para várias techs
-            clickBotJob={() => clickBotJob(jobs.techsCount[0].tech.id, jobs.id)}
+            clickBotJob={async () => {
+              clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);
+            }}
           />
         ))}
       </GoogleMapReact>

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import MapContainer from '../../components/MapContainer';
 import TechsMenu from '../../components/TechsMenu';
 import JobsList from '../../components/JobsList';
+import JobDetail, { JobDetailProps } from '../../components/JobDetail';
 import { Content, Header, CarouselItens, Container } from './styles';
 
 import logoImg from '../../assets/logo/logotype/dark-theme.svg';
@@ -9,10 +10,12 @@ import { useTechs } from '../../hooks/techs';
 import { useBotJobs } from '../../hooks/botJobs';
 import { useSideBar } from '../../hooks/sideBar';
 
+import api from '../../services/api';
+
 const Map: React.FC = () => {
   const { fetchBotJobs } = useBotJobs();
   const { fetchTechs } = useTechs();
-  const { open: openSidebar } = useSideBar();
+  const { open: openSidebar, openSub: openSubSidebar } = useSideBar();
   const localTechsRaw = localStorage.getItem('@DevsMap:techs');
   const localTechs = !!localTechsRaw && JSON.parse(localTechsRaw);
 
@@ -29,39 +32,26 @@ const Map: React.FC = () => {
     await fetchBotJobs(tech);
   }, []);
 
+  const handleOpenBotJob = useCallback(
+    async (job: JobDetailProps) => {
+      const jobDetail: React.FC = () => <JobDetail {...job} />;
+
+      await openSubSidebar(jobDetail);
+    },
+    [openSubSidebar],
+  );
+
   const handleOpenBotJobs = useCallback(
     async (techId, companyId) => {
-      // const response = await api.get(`jobs/${techId}/${companyId}`);
-      const temp = [
-        {
-          title: 'Título',
-          company: 'Empresa X',
-          description:
-            'Descrição, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-          via: 'via',
-          link: 'www.google.com',
-          published_at: new Date(2021, 4, 18),
-          time_zone: '+3',
-          gogole_job_id: '0',
-        },
-        {
-          title: 'Título 2',
-          company: 'Empresa Y',
-          description:
-            'Descrição, lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-          via: 'via',
-          link: 'www.google.com',
-          published_at: new Date(2021, 4, 18),
-          time_zone: '+3',
-          gogole_job_id: '1',
-        },
-      ];
+      const response = await api.get(`jobs/${techId}/${companyId}`);
 
-      const jobsList: React.FC = () => <JobsList jobsList={temp} />;
+      const jobsList: React.FC = () => (
+        <JobsList jobsList={response.data.data} openJob={handleOpenBotJob} />
+      );
 
       await openSidebar(jobsList);
     },
-    [openSidebar],
+    [handleOpenBotJob, openSidebar],
   );
 
   return (

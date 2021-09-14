@@ -20,6 +20,7 @@ export interface JobProps {
   published_at: Date;
   time_zone: string;
   gogole_job_id?: string;
+  openJob(job: any): Promise<void>;
 }
 
 const Job: React.FC<JobProps> = ({
@@ -31,11 +32,27 @@ const Job: React.FC<JobProps> = ({
   published_at,
   time_zone,
   gogole_job_id,
+  openJob,
 }) => (
   <Container>
     <GeneralInfo>
       <Info>
-        <Title>{title}</Title>
+        <Title
+          onClick={() => {
+            openJob({
+              title,
+              company,
+              description,
+              via,
+              link,
+              published_at,
+              time_zone,
+              gogole_job_id,
+            });
+          }}
+        >
+          {title}
+        </Title>
         <Company>{company}</Company>
         <Link href={link}>Ir para vaga</Link>
       </Info>
@@ -43,7 +60,7 @@ const Job: React.FC<JobProps> = ({
         <img src={DefaultCompanyImg} alt="pic" />
       </Picture>
     </GeneralInfo>
-    <Description>{description}</Description>
+    {/* <Description>{description}</Description> */}
   </Container>
 );
 

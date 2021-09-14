@@ -4,9 +4,10 @@ import Job, { JobProps } from './components/Job';
 
 interface JobsListProps {
   jobsList: JobProps[];
+  openJob(job: any): Promise<void>;
 }
 
-const JobsList: React.FC<JobsListProps> = ({ children, jobsList }) => (
+const JobsList: React.FC<JobsListProps> = ({ children, jobsList, openJob }) => (
   <Container>
     {jobsList.map((jobs) => (
       <>
@@ -20,6 +21,7 @@ const JobsList: React.FC<JobsListProps> = ({ children, jobsList }) => (
           published_at={jobs.published_at}
           time_zone={jobs.time_zone}
           gogole_job_id={jobs.gogole_job_id}
+          openJob={openJob}
         />
         <hr />
       </>

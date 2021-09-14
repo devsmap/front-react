@@ -40,7 +40,7 @@ export const Picture = styled.div`
   border-radius: 10px;
 
   & img {
-    width: 100%;
+    width: 100px;
     border-radius: 10px;
   }
 `;

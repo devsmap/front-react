@@ -5,6 +5,9 @@ type SideBarContextData = {
   isOpen: boolean;
   open(childComponent?: React.ReactNode): Promise<void>;
   close(): Promise<void>;
+  isSubOpen: boolean;
+  openSub(subChildComponent?: React.ReactNode): Promise<void>;
+  closeSub(): Promise<void>;
 };
 
 const SideBarContext = createContext<SideBarContextData>(
@@ -12,10 +15,16 @@ const SideBarContext = createContext<SideBarContextData>(
 );
 
 const SideBarProvider: React.FC = ({ children }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isSubOpen, setIsSubOpen] = useState<boolean>(true);
   const [childComponent, setChildComponent] = useState<React.FC>(() => (
     <>
-      <div>Empty</div>
+      <div>Loading</div>
+    </>
+  ));
+  const [subChildComponent, setSubChildComponent] = useState<React.FC>(() => (
+    <>
+      <div>Loading</div>
     </>
   ));
 
@@ -28,6 +37,20 @@ const SideBarProvider: React.FC = ({ children }) => {
     setIsOpen(false);
     setChildComponent(() => (
       <>
+        <div>Loading</div>
+      </>
+    ));
+  }, []);
+
+  const openSub = useCallback(async (child) => {
+    setSubChildComponent(child);
+    setIsSubOpen(true);
+  }, []);
+
+  const closeSub = useCallback(async () => {
+    setIsSubOpen(false);
+    setSubChildComponent(() => (
+      <>
         <div>Empty</div>
       </>
     ));
@@ -38,10 +61,19 @@ const SideBarProvider: React.FC = ({ children }) => {
       value={{
         open,
         close,
+        openSub,
+        closeSub,
         isOpen,
+        isSubOpen,
       }}
     >
-      <SideBar close={close} isOpen={isOpen}>
+      <SideBar
+        close={close}
+        closeSub={closeSub}
+        isOpen={isOpen}
+        isSubOpen={isSubOpen}
+        subChildren={subChildComponent}
+      >
         {childComponent}
       </SideBar>
       {children}

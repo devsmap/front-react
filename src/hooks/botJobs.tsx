@@ -18,6 +18,7 @@ export interface TechCount {
 
 interface BotJob {
   id: number;
+  city_id: number;
   location: Coords;
   techsCount: TechCount[];
 }
