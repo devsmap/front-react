@@ -26,6 +26,16 @@ export const Container = styled.div<ContainerProps>`
   overflow: hidden;
   /* overflow-y: auto; */
   transition: 0.5s;
+`;
+
+export const Tab = styled.div`
+  width: 350px;
+`;
+
+export const Content = styled.div<ContainerProps>`
+  width: 350px;
+  height: calc(100%);
+  overflow-y: ${(props) => (props.isSubOpen ? 'hidden' : 'auto')};
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -52,23 +62,38 @@ export const Container = styled.div<ContainerProps>`
   }
 `;
 
-export const Tab = styled.div`
-  width: 350px;
-`;
-
-export const Content = styled.div`
-  width: 350px;
-
-  overflow-y: auto;
-`;
-
 export const SubTab = styled.div`
   width: 550px;
 `;
 
 export const SubContent = styled.div`
   width: 550px;
+  height: calc(100%);
   overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar:hover {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    width: 10px;
+  }
 `;
 
 export const TopBar = styled.div`

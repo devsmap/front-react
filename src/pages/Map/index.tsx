@@ -48,7 +48,6 @@ const Map: React.FC = () => {
       const jobsList: React.FC = () => (
         <JobsList jobsList={response.data.data} openJob={handleOpenBotJob} />
       );
-
       await openSidebar(jobsList);
     },
     [handleOpenBotJob, openSidebar],

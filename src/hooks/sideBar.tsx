@@ -15,8 +15,8 @@ const SideBarContext = createContext<SideBarContextData>(
 );
 
 const SideBarProvider: React.FC = ({ children }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [isSubOpen, setIsSubOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isSubOpen, setIsSubOpen] = useState<boolean>(false);
   const [childComponent, setChildComponent] = useState<React.FC>(() => (
     <>
       <div>Loading</div>

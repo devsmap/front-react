@@ -40,7 +40,9 @@ const Sidebar: React.FC<SideBarProps> = ({
           </Icons>
         )}
       </TopBar>
-      <Content>{children}</Content>
+      <Content isOpen isSubOpen={isSubOpen}>
+        {children}
+      </Content>
     </Tab>
     <SubTab>
       <SubIcons onClick={() => closeSub()}>

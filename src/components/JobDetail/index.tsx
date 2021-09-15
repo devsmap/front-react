@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './styles';
+import { Container, Title, Description } from './styles';
 
 export interface JobDetailProps {
   title: string;
@@ -22,6 +22,18 @@ const JobDetail: React.FC<JobDetailProps> = ({
   published_at,
   time_zone,
   gogole_job_id,
-}) => <Container>Teste</Container>;
+}) => (
+  <Container>
+    <Title>{title}</Title>
+    <Description>
+      {description
+        .replaceAll('•', '\n•')
+        .split('\n')
+        .map((str) => (
+          <p>{str}</p>
+        ))}
+    </Description>
+  </Container>
+);
 
 export default JobDetail;
