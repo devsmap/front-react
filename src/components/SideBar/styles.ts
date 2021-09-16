@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 interface ContainerProps {
   readonly isOpen: boolean;
@@ -14,7 +15,7 @@ export const Container = styled.div<ContainerProps>`
   height: calc(100% - 120px);
   width: ${(props) => {
     if (props.isOpen) {
-      return props.isSubOpen ? '900px' : '350px';
+      return props.isSubOpen ? '890px' : '350px';
     }
     return '0';
   }};
@@ -34,8 +35,9 @@ export const Tab = styled.div`
 
 export const Content = styled.div<ContainerProps>`
   width: 350px;
-  height: calc(100%);
-  overflow-y: ${(props) => (props.isSubOpen ? 'hidden' : 'auto')};
+  height: calc(100% - 57px);
+  width: ${(props) => (props.isSubOpen ? '345px' : '350px')};
+  overflow-y: ${(props) => (props.isSubOpen ? 'hidden' : 'scroll')};
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -47,7 +49,7 @@ export const Content = styled.div<ContainerProps>`
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #312e38;
   }
 
   /* Handle */
@@ -63,6 +65,7 @@ export const Content = styled.div<ContainerProps>`
 `;
 
 export const SubTab = styled.div`
+  margin-left: -10px;
   width: 550px;
 `;
 
@@ -70,6 +73,7 @@ export const SubContent = styled.div`
   width: 550px;
   height: calc(100%);
   overflow-y: auto;
+  background-color: ${darken(0.06, '#312e38')};
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -81,7 +85,7 @@ export const SubContent = styled.div`
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: ${darken(0.06, '#312e38')};
   }
 
   /* Handle */

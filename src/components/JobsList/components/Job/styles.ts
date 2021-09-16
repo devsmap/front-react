@@ -1,11 +1,21 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
-export const Container = styled.div`
+interface ContainerProps {
+  readonly isOpened: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
 
   flex-direction: column;
 
-  padding: 6px 18px;
+  padding: 18px 18px;
+  background-color: ${(props) => {
+    const color = '#312e38';
+
+    return props.isOpened ? darken(0.06, color) : color;
+  }};
 `;
 
 export const GeneralInfo = styled.div`
@@ -16,16 +26,20 @@ export const GeneralInfo = styled.div`
 `;
 
 export const Title = styled.div`
+  cursor: pointer;
   font-size: 16px;
   font-weight: 500;
 `;
 
 export const Company = styled.div`
+  cursor: pointer;
   font-size: 14px;
   font-weight: 500;
 `;
 
-export const Info = styled.div``;
+export const Info = styled.div`
+  width: 215px;
+`;
 
 export const Link = styled.a`
   color: white;
@@ -38,9 +52,10 @@ export const Link = styled.a`
 export const Picture = styled.div`
   width: 100px;
   border-radius: 10px;
+  padding: 0 0 0 18px;
 
   & img {
-    width: 100px;
+    width: 100%;
     border-radius: 10px;
   }
 `;
