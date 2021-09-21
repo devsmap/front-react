@@ -1,6 +1,11 @@
 import React from 'react';
 import GoogleMapReact, { Props as MapProps, Coords } from 'google-map-react';
-import BotJobsMarker, { TechCount } from './components/Markers/BotJobsMarker';
+// import MultiBotJobsMarker, {
+//   TechCount,
+// } from './components/Markers/MultiBotJobsMarker';
+import SimpleBotJobsMarker, {
+  TechCount,
+} from './components/Markers/SimpleBotJobsMarker';
 import { mapStyle } from './mapStyle';
 
 interface BotJobs {
@@ -42,7 +47,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_KEY ?? '' }}
         defaultCenter={defaultLocation}
-        defaultZoom={11}
+        defaultZoom={6}
         options={{
           styles: mapStyle,
           streetViewControl: false,
@@ -53,11 +58,22 @@ const MapContainer: React.FC<MapContainerProps> = ({
         onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
       >
         {botJobs.map((jobs) => (
-          <BotJobsMarker
+          // <MultiBotJobsMarker
+          //   key={jobs.location.lat + jobs.location.lng}
+          //   lat={jobs.location.lat}
+          //   lng={jobs.location.lng}
+          //   techsCount={jobs.techsCount}
+          //   // TODO: Fazer para várias techs
+          //   clickBotJob={async () => {
+          //     clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);
+          //   }}
+          // />
+
+          <SimpleBotJobsMarker
             key={jobs.location.lat + jobs.location.lng}
             lat={jobs.location.lat}
             lng={jobs.location.lng}
-            techsCount={jobs.techsCount}
+            techsCount={jobs.techsCount[0].count}
             // TODO: Fazer para várias techs
             clickBotJob={async () => {
               clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);

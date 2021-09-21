@@ -16,7 +16,7 @@ export interface TechCount {
   count: number;
 }
 
-interface BotJobsMarkerProps {
+interface MultiBotJobsMarkerProps {
   lat: number;
   lng: number;
   markerWidth?: number;
@@ -31,7 +31,7 @@ interface BotJobsMarkerProps {
 //   series4: '#2B9BF4',
 //   series5: '#FFA1A1',
 
-const BotJobsMarker: React.FC<BotJobsMarkerProps> = ({
+const MultiBotJobsMarker: React.FC<MultiBotJobsMarkerProps> = ({
   techsCount,
   markerWidth = 150,
   clickBotJob,
@@ -69,4 +69,4 @@ const BotJobsMarker: React.FC<BotJobsMarkerProps> = ({
   );
 };
 
-export default BotJobsMarker;
+export default MultiBotJobsMarker;
