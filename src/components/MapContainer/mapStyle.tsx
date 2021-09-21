@@ -1,31 +1,118 @@
 export const mapStyle = [
   {
+    featureType: 'all',
     elementType: 'geometry',
     stylers: [
+      {
+        color: '#242f3e',
+      },
+      {
+        visibility: 'on',
+      },
+    ],
+  },
+  {
+    featureType: 'all',
+    elementType: 'geometry.stroke',
+    stylers: [
+      {
+        color: '#17263c',
+      },
+      {
+        weight: '1.25',
+      },
+    ],
+  },
+  {
+    featureType: 'all',
+    elementType: 'labels.text.fill',
+    stylers: [
+      {
+        gamma: '0.00',
+      },
       {
         color: '#242f3e',
       },
     ],
   },
   {
+    featureType: 'all',
+    elementType: 'labels.text.stroke',
+    stylers: [
+      {
+        color: '#242f3e',
+      },
+      {
+        weight: '0.01',
+      },
+    ],
+  },
+  {
+    featureType: 'administrative',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'simplified',
+      },
+    ],
+  },
+  {
+    featureType: 'administrative.country',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'on',
+      },
+    ],
+  },
+  {
+    featureType: 'administrative.country',
     elementType: 'labels.text.fill',
     stylers: [
+      {
+        visibility: 'on',
+      },
       {
         color: '#746855',
       },
     ],
   },
   {
-    elementType: 'labels.text.stroke',
+    featureType: 'administrative.province',
+    elementType: 'all',
     stylers: [
       {
-        color: '#242f3e',
+        weight: '0.01',
+      },
+      {
+        gamma: '1.48',
+      },
+      {
+        visibility: 'off',
       },
     ],
   },
   {
-    featureType: 'administrative',
-    elementType: 'geometry',
+    featureType: 'administrative.locality',
+    elementType: 'all',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'administrative.locality',
+    elementType: 'labels.text.stroke',
+    stylers: [
+      {
+        weight: 1.5,
+      },
+    ],
+  },
+  {
+    featureType: 'administrative.neighborhood',
+    elementType: 'all',
     stylers: [
       {
         visibility: 'off',
@@ -34,35 +121,7 @@ export const mapStyle = [
   },
   {
     featureType: 'administrative.land_parcel',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative.locality',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#ac85d1',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative.locality',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#242229',
-      },
-      {
-        weight: 1.5,
-      },
-    ],
-  },
-  {
-    featureType: 'administrative.neighborhood',
+    elementType: 'all',
     stylers: [
       {
         visibility: 'off',
@@ -71,69 +130,7 @@ export const mapStyle = [
   },
   {
     featureType: 'poi',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'poi',
-    elementType: 'labels.text',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'poi',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#d59563',
-      },
-    ],
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#263c3f',
-      },
-    ],
-  },
-  {
-    featureType: 'poi.park',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#6b9a76',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#38414e',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#212a37',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'labels',
+    elementType: 'all',
     stylers: [
       {
         visibility: 'off',
@@ -142,69 +139,7 @@ export const mapStyle = [
   },
   {
     featureType: 'road',
-    elementType: 'labels.icon',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#9ca5b3',
-      },
-    ],
-  },
-  {
-    featureType: 'road.arterial',
-    elementType: 'labels',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'geometry.stroke',
-    stylers: [
-      {
-        color: '#1f2835',
-      },
-    ],
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'labels',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'labels.text',
-    stylers: [
-      {
-        color: '#ae9bf3',
-      },
-    ],
-  },
-  {
-    featureType: 'road.highway',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#ae9bf3',
-      },
-    ],
-  },
-  {
-    featureType: 'road.local',
+    elementType: 'all',
     stylers: [
       {
         visibility: 'off',
@@ -213,27 +148,10 @@ export const mapStyle = [
   },
   {
     featureType: 'transit',
+    elementType: 'all',
     stylers: [
       {
         visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'transit',
-    elementType: 'geometry',
-    stylers: [
-      {
-        color: '#2f3948',
-      },
-    ],
-  },
-  {
-    featureType: 'transit.station',
-    elementType: 'labels.text.fill',
-    stylers: [
-      {
-        color: '#d59563',
       },
     ],
   },
