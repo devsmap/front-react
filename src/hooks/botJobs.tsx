@@ -21,6 +21,7 @@ interface BotJob {
   city_id: number;
   location: Coords;
   techsCount: TechCount[];
+  totalCount: number;
 }
 
 type BotJobsState = BotJob[];
@@ -34,10 +35,15 @@ const BotJobsContext = createContext<BotJobsContextData>(
   {} as BotJobsContextData,
 );
 
-const tempMiddleware = (rawData: any, name: string, id: number): BotJobsState =>
+const formatBotJobMiddleware = (
+  rawData: any,
+  name: string,
+  id: number,
+): BotJobsState =>
   // TODO: Adicionar a tech vinda do contexto
   rawData.map((value: any) => ({
     ...value,
+    totalCount: value.total,
     location: {
       lat: value.latitude,
       lng: value.longitude,
@@ -64,7 +70,7 @@ const BotJobsProvider: React.FC = ({ children }) => {
 
     const botJobsRaw: BotJobsState = [...response.data.data];
 
-    const botJobs: BotJobsState = tempMiddleware(
+    const botJobs: BotJobsState = formatBotJobMiddleware(
       botJobsRaw,
       value.name,
       value.id,

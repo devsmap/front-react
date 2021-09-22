@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import GoogleMapReact, { Props as MapProps, Coords } from 'google-map-react';
+import useSupercluster from 'use-supercluster';
 // import MultiBotJobsMarker, {
 //   TechCount,
 // } from './components/Markers/MultiBotJobsMarker';
+import { lighten } from 'polished';
 import SimpleBotJobsMarker, {
   TechCount,
 } from './components/Markers/SimpleBotJobsMarker';
@@ -12,6 +14,7 @@ interface BotJobs {
   city_id: number;
   id: number;
   techsCount: TechCount[];
+  totalCount: number;
   location: Coords;
 }
 
@@ -29,9 +32,41 @@ const MapContainer: React.FC<MapContainerProps> = ({
   companiesJobs,
   clickBotJob,
 }) => {
+  const mapRef = useRef<any>();
+  const [boundsState, setBoundsState] = useState<number[] | null>(null);
+  const [zoomSize, setZoomSize] = useState(10);
+
+  const points = botJobs.map((botJob) => ({
+    type: 'Feature',
+    properties: { cluster: false, botJobCount: botJob.totalCount },
+    geometry: {
+      type: 'Point',
+      coordinates: [botJob.location.lng, botJob.location.lat],
+    },
+  }));
+
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds: boundsState,
+    zoom: zoomSize,
+    options: {
+      radius: 75,
+      maxZoom: 20,
+      map: (props: any) => ({
+        botJobCount: props.botJobCount,
+      }),
+      reduce: (accumulated: any, props: any) => {
+        // eslint-disable-next-line no-param-reassign
+        accumulated.botJobCount += props.botJobCount;
+      },
+    },
+  });
+
   const defaultLocation: Coords = { lat: 37.7576948, lng: -122.4726194 };
 
   const handleApiLoaded = (map: any): void => {
+    mapRef.current = map;
+
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         map.setCenter({
@@ -40,6 +75,26 @@ const MapContainer: React.FC<MapContainerProps> = ({
         });
       });
     }
+  };
+
+  const getMarkerWidth = (
+    botJobCount: number,
+    minSize = 15,
+    maxSize = 40,
+  ): number => {
+    const markerWidth = parseInt(
+      (minSize + maxSize * Math.min(1, botJobCount / 50)).toString(),
+      10,
+    );
+
+    return markerWidth;
+  };
+
+  const getMarkerColor = (botJobCount: number, color = '#826bf8'): string => {
+    const multiplier =
+      1 - parseInt(Math.min(1, botJobCount / 50).toString(), 10);
+
+    return lighten(multiplier, color);
   };
 
   return (
@@ -56,30 +111,58 @@ const MapContainer: React.FC<MapContainerProps> = ({
         }}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => handleApiLoaded(map)}
+        onChange={({ zoom, bounds }) => {
+          setZoomSize(zoom);
+          setBoundsState([
+            bounds.nw.lng,
+            bounds.se.lat,
+            bounds.se.lng,
+            bounds.nw.lat,
+          ]);
+        }}
       >
-        {botJobs.map((jobs) => (
-          // <MultiBotJobsMarker
-          //   key={jobs.location.lat + jobs.location.lng}
-          //   lat={jobs.location.lat}
-          //   lng={jobs.location.lng}
-          //   techsCount={jobs.techsCount}
-          //   // TODO: Fazer para várias techs
-          //   clickBotJob={async () => {
-          //     clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);
-          //   }}
-          // />
+        {clusters.map((cluster, index) => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const { cluster: isCluster, botJobCount } = cluster.properties;
 
-          <SimpleBotJobsMarker
-            key={jobs.location.lat + jobs.location.lng}
-            lat={jobs.location.lat}
-            lng={jobs.location.lng}
-            techsCount={jobs.techsCount[0].count}
-            // TODO: Fazer para várias techs
-            clickBotJob={async () => {
-              clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);
-            }}
-          />
-        ))}
+          if (!isCluster) {
+            return (
+              <SimpleBotJobsMarker
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                lat={latitude}
+                lng={longitude}
+                markerWidth={getMarkerWidth(botJobCount)}
+                backgroundColor="#826bf8"
+                techsCount={botJobCount}
+                // TODO: Fazer para várias techs
+                clickBotJob={async () => {
+                  // clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);
+                  clickBotJob(1, 1);
+                }}
+              />
+            );
+          }
+          return (
+            <SimpleBotJobsMarker
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              lat={latitude}
+              lng={longitude}
+              techsCount={botJobCount}
+              backgroundColor="#826bf8"
+              markerWidth={getMarkerWidth(botJobCount)}
+              clickBotJob={async () => {
+                const expansionZoom = Math.min(
+                  supercluster.getClusterExpansionZoom(cluster.id),
+                  20,
+                );
+                mapRef.current.setZoom(expansionZoom);
+                mapRef.current.panTo({ lat: latitude, lng: longitude });
+              }}
+            />
+          );
+        })}
       </GoogleMapReact>
     </div>
   );

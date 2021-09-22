@@ -18,31 +18,29 @@ interface SimpleBotJobsMarkerProps {
   lng: number;
   markerWidth?: number;
   techsCount: number;
+  backgroundColor: string;
   clickBotJob(): Promise<void>;
 }
 
 const SimpleBotJobsMarker: React.FC<SimpleBotJobsMarkerProps> = ({
   techsCount = 10,
   markerWidth = 50,
+  backgroundColor,
   clickBotJob,
-}) => {
-  useEffect(() => {
-    1 + 1;
-  }, []);
-
-  return (
-    <a href="#/" onClick={() => clickBotJob()}>
-      <div
-        style={{
-          position: 'absolute',
-          left: markerWidth / -2,
-          top: markerWidth / -2,
-        }}
-      >
-        <Container markerWidth={markerWidth}>{techsCount}</Container>
-      </div>
-    </a>
-  );
-};
+}) => (
+  <a href="#/" onClick={() => clickBotJob()}>
+    <div
+      style={{
+        position: 'absolute',
+        left: markerWidth / -2,
+        top: markerWidth / -2,
+      }}
+    >
+      <Container markerWidth={markerWidth} backgroundColor={backgroundColor}>
+        {techsCount}
+      </Container>
+    </div>
+  </a>
+);
 
 export default SimpleBotJobsMarker;

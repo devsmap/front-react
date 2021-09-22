@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 interface ContainerProps {
   markerWidth: number;
+  backgroundColor: string;
 }
 
 export const Container = styled.div<ContainerProps>`
-  width: 50px;
-  height: 50px;
-  background-color: #826bf8;
+  width: ${(props) => props.markerWidth}px;
+  height: ${(props) => props.markerWidth}px;
+  background-color: ${(props) => props.backgroundColor};
 
   display: flex;
 
