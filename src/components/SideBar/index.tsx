@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactNode } from 'react';
+import React, { HTMLProps } from 'react';
 import { X as CloseIcon } from 'react-feather';
 import {
   Container,

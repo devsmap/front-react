@@ -4,6 +4,7 @@ import Job, { JobProps } from './components/Job';
 
 interface JobsListProps {
   jobsList: JobProps[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   openJob(job: any): Promise<void>;
 }
 

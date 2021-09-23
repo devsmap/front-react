@@ -5,7 +5,7 @@ import {
   Picture,
   Info,
   Title,
-  Description,
+  // Description,
   Link,
   Company,
 } from './styles';
@@ -22,6 +22,7 @@ export interface JobProps {
   published_at: Date;
   time_zone: string;
   gogole_job_id?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   openJob(job: any): Promise<void>;
 }
 

@@ -12,16 +12,17 @@ export interface JobDetailProps {
   gogole_job_id?: string;
 }
 
+// TODO: Acrescentar mais detalhes sobre a vaga
 const JobDetail: React.FC<JobDetailProps> = ({
-  children,
+  // children,
+  // company,
+  // via,
+  // link,
+  // published_at,
+  // time_zone,
+  // gogole_job_id,
   title,
-  company,
   description,
-  via,
-  link,
-  published_at,
-  time_zone,
-  gogole_job_id,
 }) => (
   <Container>
     <Title>{title}</Title>

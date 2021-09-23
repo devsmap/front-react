@@ -13,9 +13,12 @@ export interface TechsMenuProps {
 }
 
 const TechsMenu: React.FC<TechsMenuProps> = ({ techs, filterByTech }) => {
-  const handleTechClick = useCallback((id) => {
-    filterByTech && filterByTech(id);
-  }, []);
+  const handleTechClick = useCallback(
+    (id) => {
+      filterByTech && filterByTech(id);
+    },
+    [filterByTech],
+  );
 
   return (
     <Container>

@@ -36,11 +36,13 @@ const BotJobsContext = createContext<BotJobsContextData>(
 );
 
 const formatBotJobMiddleware = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rawData: any,
   name: string,
   id: number,
 ): BotJobsState =>
   // TODO: Adicionar a tech vinda do contexto
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rawData.map((value: any) => ({
     ...value,
     totalCount: value.total,

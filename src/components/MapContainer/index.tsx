@@ -4,7 +4,7 @@ import useSupercluster from 'use-supercluster';
 // import MultiBotJobsMarker, {
 //   TechCount,
 // } from './components/Markers/MultiBotJobsMarker';
-import { lighten } from 'polished';
+// import { lighten } from 'polished';
 import SimpleBotJobsMarker, {
   TechCount,
 } from './components/Markers/SimpleBotJobsMarker';
@@ -29,9 +29,10 @@ interface MapContainerProps extends MapProps {
 
 const MapContainer: React.FC<MapContainerProps> = ({
   botJobs,
-  companiesJobs,
+  // companiesJobs,
   clickBotJob,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>();
   const [boundsState, setBoundsState] = useState<number[] | null>(null);
   const [zoomSize, setZoomSize] = useState(10);
@@ -52,9 +53,11 @@ const MapContainer: React.FC<MapContainerProps> = ({
     options: {
       radius: 75,
       maxZoom: 20,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       map: (props: any) => ({
         botJobCount: props.botJobCount,
       }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       reduce: (accumulated: any, props: any) => {
         // eslint-disable-next-line no-param-reassign
         accumulated.botJobCount += props.botJobCount;
@@ -64,6 +67,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
 
   const defaultLocation: Coords = { lat: 37.7576948, lng: -122.4726194 };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleApiLoaded = (map: any): void => {
     mapRef.current = map;
 
@@ -90,12 +94,12 @@ const MapContainer: React.FC<MapContainerProps> = ({
     return markerWidth;
   };
 
-  const getMarkerColor = (botJobCount: number, color = '#826bf8'): string => {
-    const multiplier =
-      1 - parseInt(Math.min(1, botJobCount / 50).toString(), 10);
+  // const getMarkerColor = (botJobCount: number, color = '#826bf8'): string => {
+  //   const multiplier =
+  //     1 - parseInt(Math.min(1, botJobCount / 50).toString(), 10);
 
-    return lighten(multiplier, color);
-  };
+  //   return lighten(multiplier, color);
+  // };
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Route as ReactDOMRoute,
   RouteProps as ReactDOMRouteProps,
-  Redirect,
+  // Redirect,
 } from 'react-router-dom';
 
 import { useAuth } from '../hooks/auth';
@@ -13,10 +13,11 @@ interface RouteProps extends ReactDOMRouteProps {
 }
 
 const Route: React.FC<RouteProps> = ({
-  isPrivate = false,
+  // isPrivate = false,
   component: Component,
   ...rest
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user } = useAuth();
   /* eslint-disable indent */
   return (

@@ -22,14 +22,17 @@ const Map: React.FC = () => {
   useEffect(() => {
     fetchTechs();
     fetchBotJobs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { techs } = useTechs();
   const { botJobs } = useBotJobs();
 
   const handleTechChange = useCallback(async (id) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const tech = localTechs.find((value: any) => value.id === id);
     await fetchBotJobs(tech);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOpenBotJob = useCallback(
