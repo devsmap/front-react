@@ -30,7 +30,8 @@ type TechsContextData = {
 
 const TechsContext = createContext<TechsContextData>({} as TechsContextData);
 
-const tempMiddleware = (rawData: Tech[]): TechsState =>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const tempMiddleware = (rawData: any[]): TechsState =>
   rawData.map((value: Tech) => {
     let image: string;
 
@@ -94,10 +95,13 @@ const TechsProvider: React.FC = ({ children }) => {
   });
 
   const fetchTechs = useCallback(async () => {
-    const response: Tech[] = await api.get('categories');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const response: any[] = await api.get('categories');
 
     // const techsDataRaw: TechsState = [...response.data.data];
 
+    // eslint-disable-next-line no-console
+    console.log(response);
     const techsData = tempMiddleware(response);
 
     localStorage.setItem('@DevsMap:techs', JSON.stringify(techsData));
