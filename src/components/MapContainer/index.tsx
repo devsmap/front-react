@@ -4,7 +4,7 @@ import useSupercluster from 'use-supercluster';
 // import MultiBotJobsMarker, {
 //   TechCount,
 // } from './components/Markers/MultiBotJobsMarker';
-// import { lighten } from 'polished';
+import { lighten } from 'polished';
 import SimpleBotJobsMarker, {
   TechCount,
 } from './components/Markers/SimpleBotJobsMarker';
@@ -36,10 +36,17 @@ const MapContainer: React.FC<MapContainerProps> = ({
   const mapRef = useRef<any>();
   const [boundsState, setBoundsState] = useState<number[] | null>(null);
   const [zoomSize, setZoomSize] = useState(10);
+  const [isSomeMarkerHovered, setIsSomeMarkerHovered] =
+    useState<boolean>(false);
 
   const points = botJobs.map((botJob) => ({
     type: 'Feature',
-    properties: { cluster: false, botJobCount: botJob.totalCount },
+    properties: {
+      cluster: false,
+      botJobCount: botJob.totalCount,
+      techsCount: botJob.techsCount,
+      city_id: botJob.city_id,
+    },
     geometry: {
       type: 'Point',
       coordinates: [botJob.location.lng, botJob.location.lat],
@@ -94,12 +101,10 @@ const MapContainer: React.FC<MapContainerProps> = ({
     return markerWidth;
   };
 
-  // const getMarkerColor = (botJobCount: number, color = '#826bf8'): string => {
-  //   const multiplier =
-  //     1 - parseInt(Math.min(1, botJobCount / 50).toString(), 10);
-
-  //   return lighten(multiplier, color);
-  // };
+  const getMarkerColor = (botJobCount: number, color = '#7367f0'): string => {
+    const multiplier = 0.08 - 0.08 * Math.min(1, botJobCount / 50);
+    return lighten(multiplier, color);
+  };
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
@@ -127,7 +132,12 @@ const MapContainer: React.FC<MapContainerProps> = ({
       >
         {clusters.map((cluster, index) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, botJobCount } = cluster.properties;
+          const {
+            cluster: isCluster,
+            botJobCount,
+            techsCount,
+            city_id,
+          } = cluster.properties;
 
           if (!isCluster) {
             return (
@@ -137,13 +147,14 @@ const MapContainer: React.FC<MapContainerProps> = ({
                 lat={latitude}
                 lng={longitude}
                 markerWidth={getMarkerWidth(botJobCount)}
-                backgroundColor="#826bf8"
+                backgroundColor={getMarkerColor(botJobCount)}
                 techsCount={botJobCount}
                 // TODO: Fazer para várias techs
                 clickBotJob={async () => {
-                  // clickBotJob(jobs.techsCount[0].tech.id, jobs.city_id);
-                  clickBotJob(1, 1);
+                  clickBotJob(techsCount[0].tech.id, city_id);
                 }}
+                disable={isSomeMarkerHovered}
+                hover={(value) => setIsSomeMarkerHovered(value)}
               />
             );
           }
@@ -154,7 +165,7 @@ const MapContainer: React.FC<MapContainerProps> = ({
               lat={latitude}
               lng={longitude}
               techsCount={botJobCount}
-              backgroundColor="#826bf8"
+              backgroundColor={getMarkerColor(botJobCount)}
               markerWidth={getMarkerWidth(botJobCount)}
               clickBotJob={async () => {
                 const expansionZoom = Math.min(
@@ -164,6 +175,8 @@ const MapContainer: React.FC<MapContainerProps> = ({
                 mapRef.current.setZoom(expansionZoom);
                 mapRef.current.panTo({ lat: latitude, lng: longitude });
               }}
+              disable={isSomeMarkerHovered}
+              hover={(value) => setIsSomeMarkerHovered(value)}
             />
           );
         })}
