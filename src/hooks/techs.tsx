@@ -96,13 +96,11 @@ const TechsProvider: React.FC = ({ children }) => {
 
   const fetchTechs = useCallback(async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const response: any[] = await api.get('categories');
+    const response = await api.get('categories');
 
-    // const techsDataRaw: TechsState = [...response.data.data];
+    const techsDataRaw: TechsState = [...response.data];
 
-    // eslint-disable-next-line no-console
-    console.log(response);
-    const techsData = tempMiddleware(response);
+    const techsData = tempMiddleware(techsDataRaw);
 
     localStorage.setItem('@DevsMap:techs', JSON.stringify(techsData));
 

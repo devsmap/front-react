@@ -47,10 +47,10 @@ const Map: React.FC = () => {
 
   const handleOpenBotJobs = useCallback(
     async (techId, companyId) => {
-      const response: JobProps[] = await api.get(`jobs/${techId}/${companyId}`);
+      const response = await api.get(`jobs/${techId}/${companyId}`);
 
       const jobsList: React.FC = () => (
-        <JobsList jobsList={response} openJob={handleOpenBotJob} />
+        <JobsList jobsList={response.data} openJob={handleOpenBotJob} />
       );
       await openSidebar(jobsList);
     },

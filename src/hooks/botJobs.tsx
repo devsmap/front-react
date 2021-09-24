@@ -68,13 +68,12 @@ const BotJobsProvider: React.FC = ({ children }) => {
   const fetchBotJobs = useCallback(async (value = null) => {
     if (!value) return;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const response: any[] = await api.get(`pins/${value.id}/default`);
+    const response = await api.get(`pins/${value.id}/default`);
 
-    // const botJobsRaw: BotJobsState = [...response.data.data];
+    const botJobsRaw: BotJobsState = [...response.data];
 
     const botJobs: BotJobsState = formatBotJobMiddleware(
-      response,
+      botJobsRaw,
       value.name,
       value.id,
     );
