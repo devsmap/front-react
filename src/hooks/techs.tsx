@@ -94,11 +94,11 @@ const TechsProvider: React.FC = ({ children }) => {
   });
 
   const fetchTechs = useCallback(async () => {
-    const response = await api.get('categories');
+    const response: Tech[] = await api.get('categories');
 
-    const techsDataRaw: TechsState = [...response.data.data];
+    // const techsDataRaw: TechsState = [...response.data.data];
 
-    const techsData = tempMiddleware(techsDataRaw);
+    const techsData = tempMiddleware(response);
 
     localStorage.setItem('@DevsMap:techs', JSON.stringify(techsData));
 

@@ -70,10 +70,10 @@ const BotJobsProvider: React.FC = ({ children }) => {
 
     const response = await api.get(`pins/${value.id}/default`);
 
-    const botJobsRaw: BotJobsState = [...response.data.data];
+    // const botJobsRaw: BotJobsState = [...response.data.data];
 
     const botJobs: BotJobsState = formatBotJobMiddleware(
-      botJobsRaw,
+      response,
       value.name,
       value.id,
     );

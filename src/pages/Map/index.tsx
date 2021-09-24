@@ -11,6 +11,7 @@ import { useBotJobs } from '../../hooks/botJobs';
 import { useSideBar } from '../../hooks/sideBar';
 
 import api from '../../services/api';
+import { JobProps } from '../../components/JobsList/components/Job';
 
 const Map: React.FC = () => {
   const { fetchBotJobs } = useBotJobs();
@@ -46,10 +47,10 @@ const Map: React.FC = () => {
 
   const handleOpenBotJobs = useCallback(
     async (techId, companyId) => {
-      const response = await api.get(`jobs/${techId}/${companyId}`);
+      const response: JobProps[] = await api.get(`jobs/${techId}/${companyId}`);
 
       const jobsList: React.FC = () => (
-        <JobsList jobsList={response.data.data} openJob={handleOpenBotJob} />
+        <JobsList jobsList={response} openJob={handleOpenBotJob} />
       );
       await openSidebar(jobsList);
     },
