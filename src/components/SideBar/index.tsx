@@ -15,8 +15,8 @@ import {
 type SideBarProps = HTMLProps<HTMLDivElement> & {
   isOpen: boolean;
   isSubOpen: boolean;
-  title?: string;
-  subChildren?: React.ReactNode;
+  title: string;
+  subChildren: React.ReactNode;
   close(): Promise<void>;
   closeSub(): Promise<void>;
 };

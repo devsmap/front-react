@@ -68,6 +68,7 @@ const SideBarProvider: React.FC = ({ children }) => {
       }}
     >
       <SideBar
+        title="Vagas"
         close={close}
         closeSub={closeSub}
         isOpen={isOpen}

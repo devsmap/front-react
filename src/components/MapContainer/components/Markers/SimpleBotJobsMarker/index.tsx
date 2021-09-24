@@ -16,15 +16,17 @@ export interface TechCount {
 interface SimpleBotJobsMarkerProps {
   lat: number;
   lng: number;
-  markerWidth?: number;
+  markerWidth: number;
   techsCount: number;
   backgroundColor: string;
-  disable?: boolean;
+  disable: boolean;
   clickBotJob(): Promise<void>;
   hover(value: boolean): void;
 }
 
 const SimpleBotJobsMarker: React.FC<SimpleBotJobsMarkerProps> = ({
+  lat,
+  lng,
   techsCount = 10,
   markerWidth = 50,
   backgroundColor,

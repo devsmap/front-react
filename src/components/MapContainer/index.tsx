@@ -23,7 +23,7 @@ interface Job {
 }
 interface MapContainerProps extends MapProps {
   botJobs: BotJobs[];
-  companiesJobs: Job[];
+  // companiesJobs: Job[];
   clickBotJob(techId: number, companyId: number): Promise<void>;
 }
 

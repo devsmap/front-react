@@ -73,7 +73,7 @@ const Map: React.FC = () => {
           clickBotJob={async (techId, companyId) => {
             handleOpenBotJobs(techId, companyId);
           }}
-          companiesJobs={[]}
+          // companiesJobs={[]}
         />
       </Content>
     </Container>

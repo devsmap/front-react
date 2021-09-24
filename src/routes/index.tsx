@@ -7,9 +7,9 @@ import Map from '../pages/Map';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/" exact component={Map} />
+    <Route path="/" isPrivate={false} exact component={Map} />
 
-    <Route path="/map" component={Map} />
+    <Route path="/map" isPrivate={false} component={Map} />
   </Switch>
 );
 
